@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Issues Overview - Žádankovač</title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+        <link href="../plugins/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+<link href="../plugins/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+<link href="../plugins/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+<link href="../css/icons.css" rel="stylesheet" type="text/css">
+<link href="../css/metisMenu.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style_1.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.2/css/colReorder.dataTables.min.css">
+
+    <link href="../lib/font-awesome/css/all.css" rel="stylesheet">
+
+    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-graph.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-data-adapter.min.js"></script>
+    <script async="" src="https://js.web4ukrajina.cz/"></script>
+<style type="text/css">.apexcharts-canvas {
+  position: relative;
+  user-select: none;
+  /* cannot give overflow: hidden as it will crop tooltips which overflow outside chart area */
+}
+
+/* scrollbar is not visible by default for legend, hence forcing the visibility */
+.apexcharts-canvas ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 6px;
+}
+.apexcharts-canvas ::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  box-shadow: 0 0 1px rgba(255,255,255,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+.apexcharts-canvas.dark {
+  background: #343F57;
+}
+
+.apexcharts-inner {
+  position: relative;
+}
+
+.legend-mouseover-inactive {
+  transition: 0.15s ease all;
+  opacity: 0.20;
+}
+
+.apexcharts-series-collapsed {
+  opacity: 0;
+}
+
+.apexcharts-gridline, .apexcharts-text {
+  pointer-events: none;
+}
+
+.apexcharts-tooltip {
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px -4px #999;
+  cursor: default;
+  font-size: 14px;
+  left: 62px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 12;
+  transition: 0.15s ease all;
+}
+.apexcharts-tooltip.light {
+  border: 1px solid #e3e3e3;
+  background: rgba(255, 255, 255, 0.96);
+}
+.apexcharts-tooltip.dark {
+  color: #fff;
+  background: rgba(30,30,30, 0.8);
+}
+.apexcharts-tooltip * {
+  font-family: inherit;
+}
+
+.apexcharts-tooltip .apexcharts-marker,
+.apexcharts-area-series .apexcharts-area,
+.apexcharts-line {
+  pointer-events: none;
+}
+
+.apexcharts-tooltip.active {
+  opacity: 1;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-tooltip-title {
+  padding: 6px;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+.apexcharts-tooltip.light .apexcharts-tooltip-title {
+  background: #ECEFF1;
+  border-bottom: 1px solid #ddd;
+}
+.apexcharts-tooltip.dark .apexcharts-tooltip-title {
+  background: rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid #333;
+}
+
+.apexcharts-tooltip-text-value,
+.apexcharts-tooltip-text-z-value {
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.apexcharts-tooltip-text-z-label:empty,
+.apexcharts-tooltip-text-z-value:empty {
+  display: none;
+}
+
+.apexcharts-tooltip-text-value, 
+.apexcharts-tooltip-text-z-value {
+  font-weight: 600;
+}
+
+.apexcharts-tooltip-marker {
+  width: 12px;
+  height: 12px;
+  position: relative;
+  top: 0px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.apexcharts-tooltip-series-group {
+  padding: 0 10px;
+  display: none;
+  text-align: left;
+  justify-content: left;
+  align-items: center;
+}
+
+.apexcharts-tooltip-series-group.active .apexcharts-tooltip-marker {
+  opacity: 1;
+}
+.apexcharts-tooltip-series-group.active, .apexcharts-tooltip-series-group:last-child {
+  padding-bottom: 4px;
+}
+.apexcharts-tooltip-y-group {
+  padding: 6px 0 5px;
+}
+.apexcharts-tooltip-candlestick {
+  padding: 4px 8px;
+}
+.apexcharts-tooltip-candlestick > div {
+  margin: 4px 0;
+}
+.apexcharts-tooltip-candlestick span.value {
+  font-weight: bold;
+}
+
+.apexcharts-tooltip-rangebar {
+  padding: 5px 8px;
+}
+
+.apexcharts-tooltip-rangebar .category {
+  font-weight: 600;
+  color: #777;
+}
+
+.apexcharts-tooltip-rangebar .series-name {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.apexcharts-xaxistooltip {
+  opacity: 0;
+  padding: 9px 10px;
+  pointer-events: none;
+  color: #373d3f;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+	background: #ECEFF1;
+  border: 1px solid #90A4AE;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-xaxistooltip.dark {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.apexcharts-xaxistooltip:after, .apexcharts-xaxistooltip:before {
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.apexcharts-xaxistooltip:after {
+	border-color: rgba(236, 239, 241, 0);
+	border-width: 6px;
+	margin-left: -6px;
+}
+.apexcharts-xaxistooltip:before {
+	border-color: rgba(144, 164, 174, 0);
+	border-width: 7px;
+	margin-left: -7px;
+}
+
+.apexcharts-xaxistooltip-bottom:after, .apexcharts-xaxistooltip-bottom:before {
+  bottom: 100%;
+}
+
+.apexcharts-xaxistooltip-top:after, .apexcharts-xaxistooltip-top:before {
+  top: 100%;
+}
+
+.apexcharts-xaxistooltip-bottom:after {
+  border-bottom-color: #ECEFF1;
+}
+.apexcharts-xaxistooltip-bottom:before {
+  border-bottom-color: #90A4AE;
+}
+
+.apexcharts-xaxistooltip-bottom.dark:after {
+  border-bottom-color: rgba(0, 0, 0, 0.5);
+}
+.apexcharts-xaxistooltip-bottom.dark:before {
+  border-bottom-color: rgba(0, 0, 0, 0.5);
+}
+
+.apexcharts-xaxistooltip-top:after {
+  border-top-color:#ECEFF1
+}
+.apexcharts-xaxistooltip-top:before {
+  border-top-color: #90A4AE;
+}
+.apexcharts-xaxistooltip-top.dark:after {
+  border-top-color:rgba(0, 0, 0, 0.5);
+}
+.apexcharts-xaxistooltip-top.dark:before {
+  border-top-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.apexcharts-xaxistooltip.active {
+  opacity: 1;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-yaxistooltip {
+  opacity: 0;
+  padding: 4px 10px;
+  pointer-events: none;
+  color: #373d3f;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+	background: #ECEFF1;
+  border: 1px solid #90A4AE;
+}
+
+.apexcharts-yaxistooltip.dark {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.apexcharts-yaxistooltip:after, .apexcharts-yaxistooltip:before {
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+.apexcharts-yaxistooltip:after {
+	border-color: rgba(236, 239, 241, 0);
+	border-width: 6px;
+	margin-top: -6px;
+}
+.apexcharts-yaxistooltip:before {
+	border-color: rgba(144, 164, 174, 0);
+	border-width: 7px;
+	margin-top: -7px;
+}
+
+.apexcharts-yaxistooltip-left:after, .apexcharts-yaxistooltip-left:before {
+  left: 100%;
+}
+
+.apexcharts-yaxistooltip-right:after, .apexcharts-yaxistooltip-right:before {
+  right: 100%;
+}
+
+.apexcharts-yaxistooltip-left:after {
+  border-left-color: #ECEFF1;
+}
+.apexcharts-yaxistooltip-left:before {
+  border-left-color: #90A4AE;
+}
+.apexcharts-yaxistooltip-left.dark:after {
+  border-left-color: rgba(0, 0, 0, 0.5);
+}
+.apexcharts-yaxistooltip-left.dark:before {
+  border-left-color: rgba(0, 0, 0, 0.5);
+}
+
+.apexcharts-yaxistooltip-right:after {
+  border-right-color: #ECEFF1;
+}
+.apexcharts-yaxistooltip-right:before {
+  border-right-color: #90A4AE;
+}
+.apexcharts-yaxistooltip-right.dark:after {
+  border-right-color: rgba(0, 0, 0, 0.5);
+}
+.apexcharts-yaxistooltip-right.dark:before {
+  border-right-color: rgba(0, 0, 0, 0.5);
+}
+
+.apexcharts-yaxistooltip.active {
+  opacity: 1;
+}
+
+.apexcharts-xcrosshairs, .apexcharts-ycrosshairs {
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-xcrosshairs.active, .apexcharts-ycrosshairs.active {
+  opacity: 1;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-ycrosshairs-hidden {
+  opacity: 0;
+}
+
+.apexcharts-zoom-rect {
+  pointer-events: none;
+}
+.apexcharts-selection-rect {
+  cursor: move;
+}
+
+.svg_select_points, .svg_select_points_rot {
+  opacity: 0;
+  visibility: hidden;
+}
+.svg_select_points_l, .svg_select_points_r {
+  cursor: ew-resize;
+  opacity: 1;
+  visibility: visible;
+  fill: #888;
+}
+.apexcharts-canvas.zoomable .hovering-zoom {
+  cursor: crosshair
+}
+.apexcharts-canvas.zoomable .hovering-pan {
+  cursor: move
+}
+
+.apexcharts-xaxis,
+.apexcharts-yaxis {
+  pointer-events: none;
+}
+
+.apexcharts-zoom-icon, 
+.apexcharts-zoom-in-icon,
+.apexcharts-zoom-out-icon,
+.apexcharts-reset-zoom-icon, 
+.apexcharts-pan-icon, 
+.apexcharts-selection-icon,
+.apexcharts-menu-icon, 
+.apexcharts-toolbar-custom-icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  line-height: 24px;
+  color: #6E8192;
+  text-align: center;
+}
+
+
+.apexcharts-zoom-icon svg, 
+.apexcharts-zoom-in-icon svg,
+.apexcharts-zoom-out-icon svg,
+.apexcharts-reset-zoom-icon svg,
+.apexcharts-menu-icon svg {
+  fill: #6E8192;
+}
+.apexcharts-selection-icon svg {
+  fill: #444;
+  transform: scale(0.76)
+}
+
+.dark .apexcharts-zoom-icon svg, 
+.dark .apexcharts-zoom-in-icon svg,
+.dark .apexcharts-zoom-out-icon svg,
+.dark .apexcharts-reset-zoom-icon svg, 
+.dark .apexcharts-pan-icon svg, 
+.dark .apexcharts-selection-icon svg,
+.dark .apexcharts-menu-icon svg, 
+.dark .apexcharts-toolbar-custom-icon svg{
+  fill: #f3f4f5;
+}
+
+.apexcharts-canvas .apexcharts-zoom-icon.selected svg, 
+.apexcharts-canvas .apexcharts-selection-icon.selected svg, 
+.apexcharts-canvas .apexcharts-reset-zoom-icon.selected svg {
+  fill: #008FFB;
+}
+.light .apexcharts-selection-icon:not(.selected):hover svg,
+.light .apexcharts-zoom-icon:not(.selected):hover svg, 
+.light .apexcharts-zoom-in-icon:hover svg, 
+.light .apexcharts-zoom-out-icon:hover svg, 
+.light .apexcharts-reset-zoom-icon:hover svg, 
+.light .apexcharts-menu-icon:hover svg {
+  fill: #333;
+}
+
+.apexcharts-selection-icon, .apexcharts-menu-icon {
+  position: relative;
+}
+.apexcharts-reset-zoom-icon {
+  margin-left: 5px;
+}
+.apexcharts-zoom-icon, .apexcharts-reset-zoom-icon, .apexcharts-menu-icon {
+  transform: scale(0.85);
+}
+
+.apexcharts-zoom-in-icon, .apexcharts-zoom-out-icon {
+  transform: scale(0.7)
+}
+
+.apexcharts-zoom-out-icon {
+  margin-right: 3px;
+}
+
+.apexcharts-pan-icon {
+  transform: scale(0.62);
+  position: relative;
+  left: 1px;
+  top: 0px;
+}
+.apexcharts-pan-icon svg {
+  fill: #fff;
+  stroke: #6E8192;
+  stroke-width: 2;
+}
+.apexcharts-pan-icon.selected svg {
+  stroke: #008FFB;
+}
+.apexcharts-pan-icon:not(.selected):hover svg {
+  stroke: #333;
+}
+
+.apexcharts-toolbar {
+  position: absolute;
+  z-index: 11;
+  top: 0px;
+  right: 3px;
+  max-width: 176px;
+  text-align: right;
+  border-radius: 3px;
+  padding: 0px 6px 2px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.apexcharts-toolbar svg {
+  pointer-events: none;
+}
+
+.apexcharts-menu {
+  background: #fff;
+  position: absolute;
+  top: 100%;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 3px;
+  right: 10px;
+  opacity: 0;
+  min-width: 110px;
+  transition: 0.15s ease all;
+  pointer-events: none;
+}
+
+.apexcharts-menu.open {
+  opacity: 1;
+  pointer-events: all;
+  transition: 0.15s ease all;
+}
+
+.apexcharts-menu-item {
+  padding: 6px 7px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.light .apexcharts-menu-item:hover {
+  background: #eee;
+}
+.dark .apexcharts-menu {
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .apexcharts-toolbar {
+    /*opacity: 0;*/
+  }
+
+  .apexcharts-canvas:hover .apexcharts-toolbar {
+    opacity: 1;
+  } 
+}
+
+.apexcharts-datalabel.hidden {
+  opacity: 0;
+}
+
+.apexcharts-pie-label,
+.apexcharts-datalabel, .apexcharts-datalabel-label, .apexcharts-datalabel-value {
+  cursor: default;
+  pointer-events: none;
+}
+
+.apexcharts-pie-label-delay {
+  opacity: 0;
+  animation-name: opaque;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+}
+
+.apexcharts-canvas .hidden {
+  opacity: 0;
+}
+
+.apexcharts-hide .apexcharts-series-points {
+  opacity: 0;
+}
+
+.apexcharts-area-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events,
+.apexcharts-line-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events, .apexcharts-radar-series path, .apexcharts-radar-series polygon {
+  pointer-events: none;
+}
+
+/* markers */
+
+.apexcharts-marker {
+  transition: 0.15s ease all;
+}
+
+@keyframes opaque {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}</style></head>
+<body class="sticky-header mb-5">
+
+        
+
+
+<div class="topbar">
+    <nav class="topbar-main">
+        <div class="topbar-left">
+            <a class="logo" href="/Issues">
+                <span>
+                    <img src="../images/logo-sm.png" alt="logo-small" class="logo-sm">
+                </span>
+                <span>
+                    <img src="../images/logo-dark.png" alt="logo-large" class="logo-lg">
+                </span>
+            </a>
+        </div>
+        <ul class="list-unstyled topbar-nav float-right mb-0">
+            <li class="mr-2 language-picker-nav">
+                <div class="nav-link">
+                    
+
+<form method="GET">
+    <select style="width:100%" class="language-switcher select2-hidden-accessible" name="culture" onchange="this.parentElement.submit();" tabindex="-1" aria-hidden="true">
+            <option data-img_src="../images/cs-flag.jpg" value="cs">
+                Čeština
+            </option>
+            <option data-img_src="../images/us-flag.jpg" value="en-US" selected="selected">
+                English
+            </option>
+    </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-culture-22-container"><span class="select2-selection__rendered" id="select2-culture-22-container" title="
+                English
+            "><div class="mr-2" style="color:#828db1"><img src="/images/us-flag.jpg">
+                English
+            </div></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+</form>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user pr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <img src="../images/users/user-4.png" alt="profile-user" class="rounded-circle">
+                    <span class="ml-1 nav-user-name">johnson.jonathan.us@gmail.com <i class="mdi mdi-chevron-down"></i> </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item d-none home-link-dropdown" href="/Issues"><i class="dripicons-home text-muted mr-2"></i> Home</a>
+                    <a class="dropdown-item" href="/Profile/johnson.jonathan.us@gmail.com"><i class="dripicons-user text-muted mr-2"></i> Profile</a>
+                        <a class="dropdown-item" href="/Invitations"><i class="dripicons-user-group text-muted mr-2"></i> User Management</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Utility/MySignOut"><i class="dripicons-exit text-muted mr-2"></i> Sign Out</a>
+                    <div class="d-none language-picker-dropdown">
+                        
+
+<form method="GET">
+    <select style="width:100%" class="language-switcher select2-hidden-accessible" name="culture" onchange="this.parentElement.submit();" tabindex="-1" aria-hidden="true">
+            <option data-img_src="../images/cs-flag.jpg" value="cs">
+                Čeština
+            </option>
+            <option data-img_src="../images/us-flag.jpg" value="en-US" selected="selected">
+                English
+            </option>
+    </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-culture-9u-container"><span class="select2-selection__rendered" id="select2-culture-9u-container" title="
+                English
+            "><div class="mr-2" style="color:#828db1"><img src="/images/us-flag.jpg">
+                English
+            </div></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+</form>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+        <div class="page-wrapper">
+            
+
+
+
+<div class="page-content">
+    <div class="container-fluid">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="float-right">
+                        <button type="button" class="btn btn-primary waves-effect waves-light float-right mb-3" data-toggle="modal" data-animation="bounce" data-target=".add-issue-modal">+ New Issue</button>
+                    </div>
+                    <h4 class="page-title">Issues Overview - <span class="font-italic">Personal</span></h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="datatable-buttons_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length mb-2" id="datatable-buttons_length"><label>Show <select name="datatable-buttons_length" aria-controls="datatable-buttons" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> issues</label></div><div class="dt-buttons btn-group">      <button class="btn btn-primary buttons-copy buttons-html5" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button> <button class="btn btn-primary buttons-excel buttons-html5" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Excel</span></button> <button class="btn btn-primary buttons-pdf buttons-html5" tabindex="0" aria-controls="datatable-buttons" type="button"><span>PDF</span></button> <button class="btn btn-primary buttons-collection dropdown-toggle buttons-colvis" tabindex="0" aria-controls="datatable-buttons" type="button" aria-haspopup="true"><span>Hide columns</span></button> </div></div><div class="col-sm-12 col-md-6"><div id="datatable-buttons_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="datatable-buttons"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="datatable-buttons" class="table dt-responsive nowrap dataTable no-footer dtr-inline collapsed" style="border-collapse: collapse; border-spacing: 0px; width: 100%;" role="grid" aria-describedby="datatable-buttons_info"><thead class="thead-light">
+                                <tr role="row"><th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1" style="width: 28px;" data-column-index="0" aria-label="Title: activate to sort column ascending">Title</th><th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1" style="width: 196px;" data-column-index="1" aria-label="Assigned to: activate to sort column ascending">Assigned to</th><th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1" style="width: 59px;" data-column-index="2" aria-sort="ascending" aria-label="Deadline: activate to sort column descending">Deadline</th><th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1" style="width: 196px; display: none;" data-column-index="3" aria-label="Assigned by: activate to sort column ascending">Assigned by</th><th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1" style="width: 63px; display: none;" data-column-index="4" aria-label="Issued on: activate to sort column ascending">Issued on</th><th class="sorting" tabindex="0" aria-controls="datatable-buttons" rowspan="1" colspan="1" style="width: 68px; display: none;" data-column-index="5" aria-label="Status: activate to sort column ascending">Status</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px; display: none;" data-column-index="6" aria-label="Actions">Actions</th></tr>
+                            </thead>
+                            
+                            <tbody>
+                                    
+                                    
+                            <tr role="row" class="odd">
+                                        <td tabindex="0">
+                                            <a href="/Issues/Details/4119"><b>Yooo</b></a>
+                                        </td>
+                                        <td style="">
+                                                <a href="/Profile/johnson.jonathan.us@gmail.com">johnson.jonathan.us@gmail.com</a>
+                                        </td>
+                                        <td class="sorting_1" style="">
+                                            13.04.2023
+                                        </td>
+                                        <td style="display: none;">
+                                                <a href="/Profile/johnson.jonathan.us@gmail.com">johnson.jonathan.us@gmail.com</a>
+                                        </td>
+                                        <td style="display: none;">
+                                            28.04.2023
+                                        </td>
+                                        <td style="display: none;">
+                                            <span class="badge badge-soft-secondary" style="font-size:13px">In progress</span>
+                                        </td>
+                                        <td style="display: none;">
+                                                <a class="mr-2" title="Edit issue" href="/Issues/Edit/4119"><i class="fas fa-edit text-info font-16"></i></a>
+                                                <a href="javascript:void(0);" data-id="4119" data-value="Yooo" class="deleteIssue text-muted text-decoration-none" title="Remove issue"><i class="fas fa-trash-alt text-danger font-16"></i></a>
+                                        </td>
+                                    </tr><tr role="row" class="even">
+                                        <td tabindex="0">
+                                            <a href="/Issues/Details/4118"><b>Test 1</b></a>
+                                        </td>
+                                        <td style="">
+                                                <a href="/Profile/johnson.jonathan.us@gmail.com">johnson.jonathan.us@gmail.com</a>
+                                        </td>
+                                        <td class="sorting_1" style="">
+                                            16.04.2023
+                                        </td>
+                                        <td style="display: none;">
+                                                <a href="/Profile/johnson.jonathan.us@gmail.com">johnson.jonathan.us@gmail.com</a>
+                                        </td>
+                                        <td style="display: none;">
+                                            25.04.2023
+                                        </td>
+                                        <td style="display: none;">
+                                            <span class="badge badge-soft-success" style="font-size:13px">Approved</span>
+                                        </td>
+                                        <td style="display: none;">
+                                                <a class="mr-2" title="Edit issue" href="/Issues/Edit/4118"><i class="fas fa-edit text-info font-16"></i></a>
+                                                <a href="javascript:void(0);" data-id="4118" data-value="Test 1" class="deleteIssue text-muted text-decoration-none" title="Remove issue"><i class="fas fa-trash-alt text-danger font-16"></i></a>
+                                        </td>
+                                    </tr></tbody>
+                        </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="datatable-buttons_info" role="status" aria-live="polite">Showing 1 to 2 of 2 issues</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="datatable-buttons_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="datatable-buttons_previous"><a href="#" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="datatable-buttons" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="datatable-buttons_next"><a href="#" aria-controls="datatable-buttons" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade add-issue-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myLargeModalLabel">New Issue</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                
+                <form enctype="multipart/form-data" id="__AjaxAntiForgeryForm" action="/Issues" method="post" novalidate="novalidate">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="IssueTitle">Title</label>
+                                <input class="form-control" type="text" data-val="true" data-val-length="Maximum length is 60 characters" data-val-length-max="60" data-val-required="This field is required" id="IssueTitle" maxlength="60" name="IssueTitle" value="">
+                                <span class="text-danger field-validation-valid" data-valmsg-for="IssueTitle" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="IssueDescription">Description</label><label class="font-italic control-label ml-1"> (tip: start typing @ followed by the name of the user you'd like to mention)</label>
+                                <textarea class="form-control ui-autocomplete-input" rows="5" data-val="true" data-val-length="Maximum length is 600 characters" data-val-length-max="600" data-val-required="This field is required" id="IssueDescription" maxlength="600" name="IssueDescription" autocomplete="off"></textarea>
+                                <span class="text-danger field-validation-valid" data-valmsg-for="IssueDescription" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="user-mentions" class="form-group">
+                                <label class="control-label d-none" for="UserMentionsInput">Mentions</label>
+                                <input id="user-mentions-input" type="hidden" name="UserMentionsInput" value="">
+                                <ul id="user-mentions-list" style="list-style-type:none" class="p-0"></ul>
+                                <span class="text-danger field-validation-valid" data-valmsg-for="UserMentionsInput" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="DateDeadline">Deadline</label>
+                                <input class="form-control" type="date" data-val="true" data-val-required="This field is required" id="DateDeadline" name="DateDeadline" value=""><input name="__Invariant" type="hidden" value="DateDeadline">
+                                <span class="text-danger field-validation-valid" data-valmsg-for="DateDeadline" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label mr-2" for="AssignedTo">Assigned to</label>
+                                <select class="custom-select" data-val="true" data-val-required="This field is required" id="AssignedTo" name="AssignedTo">
+                                    <option disabled="" selected=""> -- Pick a user -- </option>
+                                <option value="9482481e-e576-4f65-a1e7-97a5b9c4fbcb">johnson.jonathan.us@gmail.com</option>
+</select>
+                                <span class="text-danger d-block field-validation-valid" data-valmsg-for="AssignedTo" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label mr-2" for="CurrentStatus">Status</label>
+                                <select class="custom-select" data-val="true" data-val-required="This field is required" id="CurrentStatus" name="CurrentStatus"><option value="Open">Assigned</option>
+<option value="In progress">In progress</option>
+<option value="Resolved">Completed</option>
+<option value="Closed">Approved</option>
+</select>
+                                <span class="text-danger field-validation-valid" data-valmsg-for="CurrentStatus" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="Files">Attachments</label>
+                                <div class="custom-file">
+                                    <input multiple="" class="form-control custom-file-input" type="file" id="Files" name="Files">
+                                    <label class="custom-file-label">Attach a file...</label>
+                                    <span class="text-danger field-validation-valid" data-valmsg-for="Files" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8NlAQj4qZEpClbaC08xsVRcTzsH0Oif-9liuetLBaFqPuvFtlbuYPrisidq3g4tEcV1mkeM2yMsul57wJBv_GJsxsa6BWS1JNyNXa1ve9d8QkHEe-8d2mU6UmlZmDY6SK3_AW5f4044wyqwjuknFZw8Ebgbb6zEZ9KNCaQb9tB2Y4rD45MUaiX2Ikgm9MTXg0w"></form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        </div>
+        <footer class="footer text-center text-sm-left">
+            <div class="boxed-footer">
+                © 2023 Žádankovač - Authored by <a href="#" onclick="$showMail.call(this, event);"><u>Michal Moc</u></a> - <a href="/Srs"><u>SRS</u></a>
+            </div>
+            <div style="width:30%;margin:0 auto">
+            </div>
+        </footer>
+
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+
+    <script>
+        function $showMail(event) {
+                 const email = ['j', 'o', 'n', 'a', 't', 'h', 'a', 'n', '.', 'j', 'o', 'h', 'n', 's', 'o', 'n', '.', 'u', 's'].join("") + "@" + "gmail.com";
+                /*const email = ['j', 'o', 'n', 'a', 't', 'h', 'a', 'n','.','j', 'o', 'h', 'n', 's', 'o', 'n', '.', 'u','s'].join("") + "@" + "gmail.com";*/
+            this.onclick = null;
+            this.innerHTML = email;
+            this.setAttribute("href", "mailto:" + email);
+
+            event.preventDefault();
+        }
+        function custom_template(obj) {
+            var data = $(obj.element).data();
+            var text = $(obj.element).text();
+            if (data && data['img_src']) {
+                img_src = data['img_src'];
+                template = $("<div class='mr-2' style='color:#828db1'><img src=\"" + img_src + "\" />" + text + "</div>");
+                return template;
+            }
+        }
+        var options = {
+            'templateSelection': custom_template,
+            'templateResult': custom_template,
+            minimumResultsForSearch: Infinity
+        }
+        $('.language-switcher').select2(options);
+        $('.select2-container--default .select2-selection--single');
+    </script>
+
+
+    <script src="/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0"></script>
+
+    
+    <script>
+        $(document).ready(function () {
+            $("#IssueDescription").on("keydown", function () {
+                var newY = $(this).textareaHelper('caretPos').top + (parseInt($(this).css('font-size'), 10) * 1.5);
+                var newX = $(this).textareaHelper('caretPos').left;
+                var posString = "left+" + newX + "px top+" + newY + "px";
+                $(this).autocomplete("option", "position", {
+                    my: "left top",
+                    at: posString
+                });
+            });
+            $('#IssueDescription').autocompleteTrigger({
+                triggerStart: '@',
+                triggerEnd: '',
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Issues/GetListOfUsers',
+                        type: 'GET',
+                        cache: false,
+                        data: request,
+                        dataType: 'json',
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.label,
+                                    value: item.label + " ",
+                                    email: item.value,
+                                    data: item.id + ","
+                                }
+                            }))
+                        }
+                    });
+                }
+            });
+            $("#IssueDescription").on("autocompleteselect", function (event, ui) {
+                event.preventDefault();
+                if ($("#user-mentions .control-label").hasClass("d-none")) {
+                    $("#user-mentions .control-label").addClass("d-block").removeClass("d-none");
+                }
+                if ($("#user-mentions-input").val().indexOf(ui.item.data) == -1) {
+                    $("#user-mentions-input").val($("#user-mentions-input").val() + ui.item.data);
+                    $("#user-mentions-list").append("<li class='mb-2 mention-item'><span class='badge badge-dark' style='font-size:13px'><a class='text-light' href='/Profile/" + ui.item.email + "'>" + ui.item.label + "</a><span></span><a href='javascript:void(0);' data-id='" + ui.item.data + "' class='deleteMention text-decoration-none text-muted pl-2' title='Remove mention'>x</a></span></li>");
+                }
+            });
+            $('#user-mentions-list').on('click', '.deleteMention', function (e) {
+                e.preventDefault();
+                var $ctrl = $(this);
+                if ($("#user-mentions-input").val().indexOf($ctrl.data('id')) > -1) {
+                    $("#user-mentions-input").val($("#user-mentions-input").val().replace($ctrl.data('id'), ""));
+                }
+                $ctrl.closest(".mention-item").remove();
+            });
+            $('.custom-file-input').on("change", function () {
+                var fileLabel = $(this).next('.custom-file-label');
+                var files = $(this)[0].files;
+                if (files.length > 1 && files.length < 6) {
+                    fileLabel.html('You&#x27;ve picked ' + files.length + ' file(s)');
+                }
+                else if (files.length == 1) {
+                    fileLabel.html(files[0].name);
+                }
+                else if (files.length > 5) {
+                    fileLabel.html('<span class="text-danger">The limit is 5 files</span>');
+                }
+            });
+            $('#datatable-buttons').on('click', '.deleteIssue', function (e) {
+                e.preventDefault();
+                var $ctrl = $(this);
+                $("#remove-issue-paragraph").html("You are about to remove the issue <i>" + $(this).data("value") + "</i>. Continue?");
+                $("#remove-issue-dialog").dialog({
+                    width: 'auto',
+                    maxWidth: 400,
+                    height: 'auto',
+                    modal: true,
+                    fluid: true,
+                    resizable: false,
+                    buttons: {
+                        "Remove": function () {
+                            $(this).dialog("close");
+                            var form = $('#__AjaxAntiForgeryForm');
+                            var token = $('input[name="__RequestVerificationToken"]', form).val();
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Issues/ClickAndDeleteIssue',
+                                dataType: "json",
+                                data: {
+                                    __RequestVerificationToken: token,
+                                    id: $ctrl.data('id')
+                                }
+                            }).done(function (data) {
+                                if (data.result == "Success") {
+                                    location.reload();
+                                }
+                                else if (data.result == "Failure") {
+                                    alert("Something went wrong.");
+                                }
+                            }).fail(function () {
+                                alert("Something went wrong.");
+                            })
+                        },
+                        "Cancel": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <div id="remove-issue-dialog" title="Remove issue">
+        <p id="remove-issue-paragraph"></p>
+    </div>
+
+<script src="../lib/jquery-validation/jquery.min.js"></script>
+<script src="../lib//jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+        
+
+<script src="../js/metisMenu.min.js"></script>
+<script src="../js/waves.min.js"></script>
+<script src="../js/jquery.slimscroll.min.js"></script>
+
+<script src="../lib/plugins/moment.js"></script>
+<script src="../lib/plugins/apexcharts.min.js"></script>
+<script src="../lib/plugins/jquery.dataTables.min.js"></script>
+<script src="../lib/plugins/dataTables.bootstrap4.min.js"></script>
+
+<script src="../lib/plugins/dataTables.buttons.min.js"></script>
+<script src="../lib/plugins/buttons.bootstrap4.min.js"></script>
+<script src="../lib/plugins/jszip.min.js"></script>
+<script src="../lib/plugins/pdfmake.min.js"></script>
+<script src="../lib/plugins/vfs_fonts.js"></script>
+<script src="../lib/plugins/buttons.html5.min.js"></script>
+<script src="../lib/plugins/buttons.print.min.js"></script>
+<script src="../lib/plugins/buttons.colVis.min.js"></script>
+
+<script src="../lib/plugins/dataTables.responsive.min.js"></script>
+<script src="../lib/plugins/responsive.bootstrap4.min.js"></script>
+<script src="../lib/plugins/jquery.caret.js"></script>
+<script src="../lib/plugins/jquery-ui.autocompleteTrigger.js"></script>
+<script src="../lib/plugins/textarea-helper.js"></script>
+<script src="../datatables/jquery.en.datatables.init.js"></script>
+
+<script src="../js/app.js"></script>
+
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
+
+
+
+<svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg><ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;"></ul><div role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div>
+</body>
+</html>
